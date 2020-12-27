@@ -18,6 +18,11 @@ public class GuiStage {
 	private Canvas canvas;
 	private TableView lexical;
 	private TableView symbolTable;
+	private Button brButton;
+	TableColumn lexemeCol;
+	TableColumn classificationCol;
+	TableColumn identifierCol;
+	TableColumn valueCol;
 	public static final int WINDOW_W = 1080;
 	public static final int WINDOW_H = 720;
 	public GuiStage(){
@@ -27,35 +32,23 @@ public class GuiStage {
 		this.gc = canvas.getGraphicsContext2D();
 		this.lexical = new TableView();
 		this.symbolTable = new TableView();
+		//table columns
+		this.lexemeCol = new TableColumn("Lexeme");
+		this.classificationCol = new TableColumn("Classification");
+		this.identifierCol = new TableColumn("Identifiers");
+		this.valueCol = new TableColumn("Values");
 	}
 
 	public void setStage(Stage stage){
-		TableColumn lexemeCol = new TableColumn("Lexeme");
-		TableColumn classificationCol = new TableColumn("Classification");
-		TableColumn identifierCol = new TableColumn("Identifiers");
-		TableColumn valueCol = new TableColumn("Values");
-		identifierCol.setPrefWidth(150);
-		identifierCol.setResizable(false);
-		valueCol.setPrefWidth(150);
-		valueCol.setResizable(false);
-		this.lexical.getColumns().addAll(lexemeCol,classificationCol);
-		this.symbolTable.getColumns().addAll(identifierCol,valueCol);
-		Button brButton = new Button("Browse Files");
-		brButton.setLayoutX(GuiStage.WINDOW_W * 0.02);
-		brButton.setLayoutY(GuiStage.WINDOW_H * 0.06);
-		brButton.setPrefSize(300, 10);
-		Button executeButton = new Button("Execute");
-		brButton.setLayoutX(GuiStage.WINDOW_W * 0.02);
-		brButton.setLayoutY(GuiStage.WINDOW_H * 0.06);
-		brButton.setPrefSize(300, 10);
+		//initialize table;
+		initTable();
+		//initialize buttons;
+		initButtons();
+
+		//text
 		TextArea compileText = new TextArea();
 		TextArea displayText = new TextArea();
-		lexical.setLayoutX(GuiStage.WINDOW_W * 0.33);
-		lexical.setLayoutY(GuiStage.WINDOW_H * 0.1);
-		lexical.setPrefSize(300, 350);
-		symbolTable.setLayoutX(GuiStage.WINDOW_W * 0.65);
-		symbolTable.setLayoutY(GuiStage.WINDOW_H * 0.1);
-		symbolTable.setPrefSize(300, 350);
+
 		compileText.setLayoutX(GuiStage.WINDOW_W * 0.02);
 		compileText.setLayoutY(GuiStage.WINDOW_H * 0.10);
 		compileText.setPrefSize(300, 350);
@@ -63,6 +56,7 @@ public class GuiStage {
 		displayText.setLayoutY(GuiStage.WINDOW_H * 0.65);
 		displayText.setPrefSize(1040, 235);
 		displayText.setEditable(false);
+
 		this.stage = stage;
 		this.root.getChildren().add(brButton);
 		this.root.getChildren().add(canvas);
@@ -73,5 +67,38 @@ public class GuiStage {
 		this.stage.setTitle("Hello Sekai Compiler");
 		this.stage.setScene(this.scene);
 		this.stage.show();
+	}
+
+	//initialize table
+	public void initTable(){
+		identifierCol.setPrefWidth(150);
+		identifierCol.setResizable(false);
+		valueCol.setPrefWidth(150);
+		valueCol.setResizable(false);
+		lexemeCol.setPrefWidth(150);
+		lexemeCol.setResizable(false);
+		classificationCol.setPrefWidth(150);
+		classificationCol.setResizable(false);
+
+		lexical.getColumns().addAll(lexemeCol,classificationCol);
+
+		symbolTable.getColumns().addAll(identifierCol,valueCol);
+
+		lexical.setLayoutX(GuiStage.WINDOW_W * 0.33);
+		lexical.setLayoutY(GuiStage.WINDOW_H * 0.1);
+		lexical.setPrefSize(300, 350);
+		symbolTable.setLayoutX(GuiStage.WINDOW_W * 0.65);
+		symbolTable.setLayoutY(GuiStage.WINDOW_H * 0.1);
+		symbolTable.setPrefSize(300, 350);
+	}
+	public void initButtons(){
+		brButton = new Button("Browse Files");
+		brButton.setLayoutX(GuiStage.WINDOW_W * 0.02);
+		brButton.setLayoutY(GuiStage.WINDOW_H * 0.06);
+		brButton.setPrefSize(300, 10);
+		Button executeButton = new Button("Execute");
+		brButton.setLayoutX(GuiStage.WINDOW_W * 0.02);
+		brButton.setLayoutY(GuiStage.WINDOW_H * 0.06);
+		brButton.setPrefSize(300, 10);
 	}
 }
